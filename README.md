@@ -2,70 +2,71 @@
 
 ## Overview
 
-This repository contains a production-grade Internal Developer Platform (IDP) built on Kubernetes.  
+This repository contains a production-grade Internal Developer Platform (IDP) built on Kubernetes.
+
 The purpose of this project is to model how modern platform engineering teams design, operate, secure, and evolve shared Kubernetes infrastructure at scale.
 
 This platform is intentionally:
-- Built incrementally using GitOps
-- Operated under realistic constraints
-- Subjected to failures and chaos
-- Observed and improved through incidents and postmortems
 
-This is not a tutorial repository or a demo cluster. It is an opinionated, operational platform designed to develop deep troubleshooting, system design, and SRE-level thinking.
+* Built incrementally using GitOps
+* Operated under realistic constraints
+* Subjected to failures and chaos
+* Observed and improved through incidents and postmortems
+
+This is **not** a tutorial repository or a demo cluster. It is an opinionated, operational platform designed to develop deep troubleshooting, system design, and SRE-level thinking.
 
 ---
 
 ## Platform Objectives
 
-The platform is designed to solve the following real-world problems:
+The platform is designed to solve real-world problems:
 
-- Safely host workloads for multiple teams on a shared Kubernetes cluster
-- Provide self-service deployment while maintaining strong governance
-- Enforce security and policy without blocking developer velocity
-- Enable deep observability for fast and accurate incident response
-- Balance performance, reliability, and infrastructure cost
-- Validate resilience through controlled failure injection
+* Safely host workloads for multiple teams on a shared Kubernetes cluster
+* Provide self-service deployment while maintaining governance
+* Enforce security and policy without blocking developer velocity
+* Enable deep observability for fast incident response
+* Balance performance, reliability, and infrastructure cost
+* Validate resilience through controlled failure injection
 
 ---
 
 ## High-Level Architecture
 
-Git is the single source of truth for all cluster state.  
+Git is the single source of truth for all cluster state.
+
 All changes are applied through GitOps and continuously reconciled.
 
-High-level flow:
+### Flow
 
 1. Platform, policy, and tenant configurations are defined in Git
 2. Argo CD reconciles desired state into the cluster
 3. Kubernetes enforces scheduling, isolation, and runtime guarantees
-4. Observability, security, and policy systems continuously monitor behavior
-5. Failures are injected intentionally and resolved using platform signals
+4. Observability, security, and policy systems monitor behavior
+5. Failures are injected and resolved using platform signals
 
 ---
 
 ## Repository Structure
 
-The repository is organized to clearly separate platform concerns from tenant workloads.
-
-sh ```
+```text
 .
 ├── clusters/
 │   └── dev/
-│       └── bootstrap and Argo CD applications
+│       └── bootstrap-and-argocd-applications/
 │
 ├── platform/
 │   ├── ingress/
-│   │   └── ingress controllers and traffic routing
+│   │   └── ingress-controllers-and-traffic-routing/
 │   ├── networking/
-│   │   └── CNI configuration and NetworkPolicies
+│   │   └── cni-config-and-network-policies/
 │   ├── observability/
-│   │   └── metrics, logs, traces, profiling
+│   │   └── metrics-logs-traces-profiling/
 │   ├── security/
-│   │   └── runtime security and supply-chain controls
+│   │   └── runtime-security-and-supply-chain/
 │   ├── policies/
-│   │   └── admission and governance policies
+│   │   └── admission-and-governance/
 │   └── autoscaling/
-│       └── HPA, VPA, and node autoscaling
+│       └── hpa-vpa-node-autoscaling/
 │
 ├── tenants/
 │   ├── team-a/
@@ -76,129 +77,154 @@ sh ```
     ├── runbooks/
     └── incidents/
 ```
+
+### Structure Principles
+
+* **clusters/** → Cluster bootstrapping and GitOps entrypoint
+* **platform/** → Shared infrastructure components
+* **tenants/** → Team-owned workloads
+* **docs/** → Operational knowledge (runbooks + incidents)
+
 ---
 
 ## Technology Stack
 
-Core platform:
-- Kubernetes
-- GitOps using Argo CD
-- Helm and Kustomize for configuration management
+### Core Platform
 
-Networking:
-- NGINX Ingress Controller
-- eBPF-based CNI for networking and visibility
-- NetworkPolicies for traffic isolation
+* Kubernetes
+* Argo CD (GitOps)
+* Helm + Kustomize
 
-Observability:
-- Prometheus for metrics
-- Grafana for visualization
-- Loki for logs
-- Tempo for distributed tracing
-- OpenTelemetry for instrumentation
-- Continuous profiling for CPU and memory analysis
+### Networking
 
-Multi-tenancy and governance:
-- Namespace-based tenancy model
-- Hard isolation using quotas and policies
-- Admission control for security and standards enforcement
-- API Priority and Fairness for control-plane protection
+* NGINX Ingress Controller
+* eBPF-based CNI
+* NetworkPolicies
 
-Security and supply chain:
-- Image vulnerability scanning
-- Signed container images
-- Runtime threat detection
-- Least-privilege RBAC and Pod Security Standards
+### Observability
 
-Autoscaling and cost:
-- Horizontal Pod Autoscaler
-- Vertical Pod Autoscaler
-- Node autoscaling with bin-packing
-- Namespace-level resource and cost attribution
+* Prometheus (metrics)
+* Grafana (visualization)
+* Loki (logs)
+* Tempo (tracing)
+* OpenTelemetry (instrumentation)
+* Continuous profiling
 
-Chaos and resilience:
-- Controlled fault injection
-- Node, pod, and network-level failures
-- Incident-driven improvements
+### Multi-Tenancy & Governance
 
-All tools used are open source and widely adopted in production environments.
+* Namespace-based tenancy
+* Resource quotas and limits
+* Admission controllers
+* API Priority and Fairness
+
+### Security & Supply Chain
+
+* Image vulnerability scanning
+* Signed container images
+* Runtime threat detection
+* Least-privilege RBAC
+* Pod Security Standards
+
+### Autoscaling & Cost
+
+* Horizontal Pod Autoscaler (HPA)
+* Vertical Pod Autoscaler (VPA)
+* Node autoscaling
+* Resource attribution per namespace
+
+### Chaos & Resilience
+
+* Fault injection
+* Node, pod, and network failures
+* Incident-driven improvements
 
 ---
 
 ## Design Principles
 
-1. Git is the source of truth  
-   No manual changes are made directly to the cluster.
+1. **Git is the source of truth**
+   No manual changes in the cluster
 
-2. Secure by default  
-   Unsafe configurations are rejected before they reach runtime.
+2. **Secure by default**
+   Unsafe configs are rejected early
 
-3. Observability first  
-   Any failure that cannot be observed is treated as a platform defect.
+3. **Observability first**
+   Unobservable systems are broken systems
 
-4. Multi-tenant safety  
-   Teams are isolated while sharing infrastructure efficiently.
+4. **Multi-tenant safety**
+   Isolation with efficient sharing
 
-5. Failure is intentional  
-   Chaos is used to validate assumptions and improve resilience.
+5. **Failure is intentional**
+   Chaos validates assumptions
 
 ---
 
-## Learning and Operation Model
+## Learning & Operation Model
 
-The platform is evolved through the following loop:
+This platform evolves through an iterative loop:
 
 1. Define a real operational problem
-2. Implement the minimal required platform capability
+2. Implement minimal capability
 3. Inject controlled failures
 4. Observe system behavior
-5. Debug using platform signals
-6. Write postmortems and improve design
+5. Debug using signals
+6. Write postmortems and improve
 
-This approach prioritizes understanding over tool familiarity.
+This prioritizes **understanding over tooling**.
 
 ---
 
 ## What This Project Is
 
-- A realistic internal developer platform
-- A reference for advanced Kubernetes operations
-- A portfolio demonstrating platform ownership
-- A system designed to be broken and fixed
+* A realistic internal developer platform
+* A reference for advanced Kubernetes operations
+* A portfolio demonstrating platform ownership
+* A system designed to be broken and improved
 
 ---
 
 ## What This Project Is Not
 
-- A step-by-step tutorial
-- A single-tool showcase
-- A production SaaS offering
-- A “happy-path-only” Kubernetes setup
+* A step-by-step tutorial
+* A single-tool showcase
+* A production SaaS
+* A “happy-path-only” setup
 
 ---
 
-## How to Use This Repository
+## Getting Started
 
-1. Bootstrap the cluster using the manifests in clusters/dev
+1. Bootstrap the cluster using `clusters/dev`
 2. Deploy platform components incrementally
 3. Onboard tenant workloads
 4. Apply policies and security controls
 5. Inject failures intentionally
-6. Observe, debug, and document outcomes
+6. Observe, debug, and document
 
 ---
 
 ## Intended Audience
 
-- Platform Engineers
-- Site Reliability Engineers
-- Senior DevOps Engineers
-- Engineers preparing for Staff or Principal roles
+* Platform Engineers
+* Site Reliability Engineers
+* Senior DevOps Engineers
+* Engineers targeting Staff/Principal roles
 
 ---
 
 ## Author Intent
 
-This project exists to develop deep expertise in Kubernetes platform engineering by building, operating, breaking, and fixing a real system.
+This project exists to build deep expertise in Kubernetes platform engineering by:
 
-Every design decision favors clarity, debuggability, and safety over shortcuts.
+* Building real systems
+* Operating them under constraints
+* Breaking them intentionally
+* Fixing them through observation and reasoning
+
+Every decision prioritizes:
+
+* Clarity
+* Debuggability
+* Safety
+
+Over shortcuts.
