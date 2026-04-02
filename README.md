@@ -47,6 +47,7 @@ High-level flow:
 
 The repository is organized to clearly separate platform concerns from tenant workloads.
 
+sh ```
 .
 ├── clusters/
 │   └── dev/
@@ -74,7 +75,7 @@ The repository is organized to clearly separate platform concerns from tenant wo
 └── docs/
     ├── runbooks/
     └── incidents/
-
+```
 ---
 
 ## Technology Stack
