@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
-  repository: docker.io/kumarshubham16/live-dashboard
-  tag: 1.0.0
+  repository: nginx
+  tag: alpine
 service:
   type: ClusterIP
   port: 3000
