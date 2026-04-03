@@ -3,6 +3,8 @@ kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}-mongodb
   namespace: {{ .Release.Namespace }}
+  labels:
+    team: devops
 spec:
   serviceName: {{ .Release.Name }}-mongodb-headless
   replicas: 1
@@ -13,6 +15,7 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}-mongodb
+        team: devops
     spec:
       containers:
         - name: mongodb
@@ -48,6 +51,8 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-mongodb
   namespace: {{ .Release.Namespace }}
+  labels:
+    team: devops
 spec:
   ports:
     - port: 27017

@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
+  labels:
+    team: devops
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -12,6 +14,7 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
+        team: devops
     spec:
       serviceAccountName: {{ .Release.Namespace }}-sa
       initContainers:
@@ -22,10 +25,10 @@ spec:
         - name: dashboard
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           env:
             - name: PORT
-              value: "3000"
+              value: "80"
             - name: MONGO_URI
               value: "mongodb://{{ .Release.Name }}-mongodb:27017/live_dashboard"
             - name: CENTRAL_DB_URL
@@ -42,11 +45,11 @@ spec:
               memory: {{ .Values.resources.limits.memory }}
           livenessProbe:
             httpGet:
-              path: /health
-              port: 3000
+              path: /
+              port: 80
             initialDelaySeconds: 10
           readinessProbe:
             httpGet:
-              path: /ready
-              port: 3000
+              path: /
+              port: 80
             initialDelaySeconds: 5
