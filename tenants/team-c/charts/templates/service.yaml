@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
   labels:
+    team: devops
 spec:
   type: {{ .Values.service.type }}
   ports:
