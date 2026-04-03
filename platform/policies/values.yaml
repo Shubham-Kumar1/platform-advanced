@@ -1,4 +1,6 @@
 kyverno:
+  crds:
+    install: true
   admissionController:
     replicas: 1
     resources:
