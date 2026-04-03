@@ -8,6 +8,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}
+      team: devops
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -18,6 +19,7 @@ spec:
       labels:
         app: {{ .Release.Name }}
         component: api
+        team: devops
     spec:
       serviceAccountName: {{ .Release.Namespace }}-sa
       initContainers:
