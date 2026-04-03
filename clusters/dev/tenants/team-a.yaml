@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: team-a
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Shubham-Kumar1/platform-advanced.git
+    targetRevision: main
+    path: tenants/team-a/charts
+
+    helm:
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: team-a
+    
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

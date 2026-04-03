@@ -1,14 +1,14 @@
 replicaCount: 1
 image:
-  repository: localhost:5000/analytics-worker
-  tag: latest
+  repository: docker.io/shubhamkumar16/analytics
+  tag: 1.0.0
 workerConcurrency: 4
 resources:
   requests:
     cpu: 200m
     memory: 256Mi
   limits:
-    cpu: "1"
+    cpu: "500m"
     memory: 512Mi
 redis:
   image: redis:7-alpine
