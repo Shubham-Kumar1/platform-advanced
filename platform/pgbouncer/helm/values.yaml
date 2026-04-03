@@ -1,6 +1,6 @@
 image:
   repository: bitnami/pgbouncer
-  tag: "1.21.0"
+  tag: "latest"
 
 postgresql:
   host: central-pg
