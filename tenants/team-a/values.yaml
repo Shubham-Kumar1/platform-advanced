@@ -16,12 +16,12 @@ resourceQuota:
   persistentvolumeclaims: "10"
 
 eventService:
-  replicaCount: 2
+  replicaCount: 1
   mysql:
     storageSize: 40Gi
 
 liveDashboard:
-  replicaCount: 2
+  replicaCount: 1
   mongodb:
     storageSize: 40Gi
 
