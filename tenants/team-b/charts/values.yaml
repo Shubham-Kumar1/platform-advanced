@@ -5,7 +5,8 @@ image:
   pullPolicy: IfNotPresent
 
 namespace:
-  team: devops
+  labels:
+    team: devops
   
 service:
   type: ClusterIP
