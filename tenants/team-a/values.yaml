@@ -9,11 +9,11 @@ namespace:
     environment: production
 
 resourceQuota:
-  cpu: "4"
-  memory: 8Gi
-  pods: "20"
-  services: "10"
-  persistentvolumeclaims: "5"
+  cpu: "8"
+  memory: 16Gi
+  pods: "40"
+  services: "20"
+  persistentvolumeclaims: "10"
 
 eventService:
   replicaCount: 2

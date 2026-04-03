@@ -18,7 +18,7 @@ spec:
       containers:
         - name: beat
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          command: ["celery", "-A", "worker.main", "beat", "--loglevel=info"]
+          # command: ["celery", "-A", "worker.main", "beat", "--loglevel=info"]
           env:
             - name: REDIS_URL
               value: "redis://{{ .Release.Name }}-redis:6379/0"

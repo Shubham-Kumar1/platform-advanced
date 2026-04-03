@@ -1,6 +1,6 @@
 image:
   repository: bitnami/pgbouncer
-  tag: "latest"
+  tag: "1.22.1-debian-12-r0"
 
 postgresql:
   host: central-pg

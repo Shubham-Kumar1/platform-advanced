@@ -23,7 +23,7 @@ spec:
       containers:
         - name: worker
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          command: ["python", "-m", "worker.main"]
+          # command: ["python", "-m", "worker.main"]
           env:
             - name: REDIS_URL
               value: "redis://{{ .Release.Name }}-redis:6379/0"
