@@ -1,21 +1,17 @@
 replicaCount: 2
 image:
-  repository: localhost:5000/live-dashboard
-  tag: latest
+  repository: docker.io/kumarshubham16/live-dashboard
+  tag: 1.0.0
 service:
   type: ClusterIP
   port: 3000
-ingress:
-  enabled: true
-  className: nginx
-  host: dashboard.eventhub.local
 resources:
   requests:
     cpu: 100m
     memory: 256Mi
   limits:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 200m
+    memory: 350Mi
 mongodb:
   image: mongo:7.0
   storageSize: 10Gi

@@ -1,36 +1,30 @@
 replicaCount: 2
-
 image:
-  repository: localhost:5000/event-service
-  tag: latest
+  repository: docker.io/kumarshubham16/events
+  tag: 1.0.0
   pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
   port: 8080
 
-ingress:
-  enabled: true
-  className: nginx
-  host: events.eventhub.local
-
 resources:
   requests:
     cpu: 100m
     memory: 128Mi
   limits:
-    cpu: 500m
+    cpu: 250m
     memory: 256Mi
 
 autoscaling:
   enabled: true
   minReplicas: 2
-  maxReplicas: 10
-  targetCPUUtilization: 70
+  maxReplicas: 5
+  targetCPUUtilization: 100
 
 mysql:
   image: mysql:8.0
-  storageSize: 10Gi
+  storageSize: 2Gi
   rootPassword: changeme-mysql-root
   database: events
 
