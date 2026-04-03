@@ -18,20 +18,20 @@ resourceQuota:
 eventService:
   replicaCount: 3
   mysql:
-    storageSize: 20Gi
+    storageSize: 40Gi
 
 liveDashboard:
   replicaCount: 3
   mongodb:
-    storageSize: 20Gi
+    storageSize: 40Gi
 
 analyticsWorker:
   replicaCount: 2
   workerConcurrency: 8
   redis:
-    storageSize: 5Gi
+    storageSize: 40Gi
 
 centralDb:
-  host: pgbouncer.platform-services.svc.cluster.local
+  host: platform-pgbouncer.platform-pgbouncer.svc.cluster.local
   port: 5432
   database: eventhub_central

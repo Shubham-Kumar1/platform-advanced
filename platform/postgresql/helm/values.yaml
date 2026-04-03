@@ -12,7 +12,7 @@ auth:
   postgresPassword: changeme-postgres
 
 storage:
-  size: 10Gi
+  size: 40Gi
   storageClass: ""
 
 resources:
