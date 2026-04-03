@@ -38,7 +38,7 @@ spec:
               EOF
 
               kubectl create secret generic central-db-credentials \
-                --namespace=tenant-{{ .Values.tenant.name }} \
+                --namespace={{ .Release.Namespace }} \
                 --from-literal=CENTRAL_DB_HOST={{ .Values.centralDb.host }} \
                 --from-literal=CENTRAL_DB_PORT={{ .Values.centralDb.port | quote }} \
                 --from-literal=CENTRAL_DB_NAME={{ .Values.centralDb.database }} \
