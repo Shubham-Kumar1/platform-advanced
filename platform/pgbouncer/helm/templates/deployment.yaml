@@ -19,16 +19,16 @@ spec:
           ports:
             - containerPort: 6432
           env:
-            - name: DB_USER
-              value: {{ .Values.postgresql.username }}
-            - name: DB_PASSWORD
-              value: {{ .Values.postgresql.password }}
-            - name: DB_HOST
-              value: {{ .Values.postgresql.host }}
-            - name: DB_PORT
-              value: "{{ .Values.postgresql.port }}"
-            - name: DB_NAME
+            - name: PGBOUNCER_DATABASE
               value: {{ .Values.postgresql.database }}
+            - name: POSTGRESQL_HOST
+              value: {{ .Values.postgresql.host }}
+            - name: POSTGRESQL_PORT
+              value: "{{ .Values.postgresql.port }}"
+            - name: POSTGRESQL_USERNAME
+              value: {{ .Values.postgresql.username }}
+            - name: POSTGRESQL_PASSWORD
+              value: {{ .Values.postgresql.password }}
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
