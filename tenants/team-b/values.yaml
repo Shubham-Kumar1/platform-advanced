@@ -5,7 +5,7 @@ tenant:
 
 namespace:
   labels:
-    team: platform
+    team: devops
     environment: production
 
 resourceQuota:

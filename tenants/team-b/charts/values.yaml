@@ -3,10 +3,6 @@ image:
   repository: nginx
   tag: alpine
   pullPolicy: IfNotPresent
-
-namespace:
-  labels:
-    team: devops
   
 service:
   type: ClusterIP
