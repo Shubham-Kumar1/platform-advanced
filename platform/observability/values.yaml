@@ -1,33 +1,57 @@
 kube-prometheus-stack:
   alertmanager:
-    enabled: false
+    enabled: true
+    alertmanagerSpec:
+      storage:
+        volumeClaimTemplate:
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            storageClassName: vultr-block-storage-hdd
+            resources:
+              requests:
+                storage: 40Gi
+
   grafana:
     enabled: true
+    service:
+      type: LoadBalancer
     persistence:
-      enabled: false
+      enabled: true
+      type: pvc
+      storageClassName: vultr-block-storage-hdd
+      size: 40Gi
     resources:
       requests:
-        cpu: 10m
-        memory: 128Mi
+        cpu: 200m
+        memory: 512Mi
       limits:
-        cpu: 100m
-        memory: 256Mi
+        cpu: 500m
+        memory: 1Gi
+
   prometheus:
     prometheusSpec:
-      retention: 2d
-      storageSpec: {}
+      retention: 15d
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            storageClassName: vultr-block-storage-hdd
+            resources:
+              requests:
+                storage: 40Gi
       resources:
         requests:
-          cpu: 50m
-          memory: 256Mi
+          cpu: 500m
+          memory: 1Gi
         limits:
-          cpu: 200m
-          memory: 512Mi
+          cpu: 1000m
+          memory: 2Gi
+
   prometheusOperator:
     resources:
       requests:
-        cpu: 10m
-        memory: 50Mi
+        cpu: 100m
+        memory: 128Mi
       limits:
-        cpu: 50m
-        memory: 100Mi
+        cpu: 200m
+        memory: 256Mi
