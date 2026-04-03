@@ -24,7 +24,7 @@ autoscaling:
 
 mysql:
   image: mysql:8.0
-  storageSize: 2Gi
+  storageSize: 40Gi
   rootPassword: changeme-mysql-root
   database: events
 
