@@ -1,0 +1,10 @@
+apiVersion: v2
+name: platform-autoscaling
+description: Platform autoscaling component powered by KEDA
+type: application
+version: 1.0.0
+appVersion: "2.13.0"
+dependencies:
+  - name: keda
+    version: 2.13.0
+    repository: https://kedacore.github.io/charts

@@ -1,0 +1,33 @@
+kube-prometheus-stack:
+  alertmanager:
+    enabled: false
+  grafana:
+    enabled: true
+    persistence:
+      enabled: false
+    resources:
+      requests:
+        cpu: 10m
+        memory: 128Mi
+      limits:
+        cpu: 100m
+        memory: 256Mi
+  prometheus:
+    prometheusSpec:
+      retention: 2d
+      storageSpec: {}
+      resources:
+        requests:
+          cpu: 50m
+          memory: 256Mi
+        limits:
+          cpu: 200m
+          memory: 512Mi
+  prometheusOperator:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50Mi
+      limits:
+        cpu: 50m
+        memory: 100Mi

@@ -1,0 +1,10 @@
+apiVersion: v2
+name: platform-security
+description: Platform security powered by Trivy Operator
+type: application
+version: 1.0.0
+appVersion: "0.19.1"
+dependencies:
+  - name: trivy-operator
+    version: 2.12.3
+    repository: https://aquasecurity.github.io/helm-charts
