@@ -9,11 +9,13 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}-mysql
+      team: devops
   template:
     metadata:
       labels:
         app: {{ .Release.Name }}-mysql
         component: database
+        team: devops
     spec:
       containers:
         - name: mysql
