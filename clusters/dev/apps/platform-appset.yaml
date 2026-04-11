@@ -9,8 +9,8 @@ spec:
         elements:
           - name: autoscaling
             path: platform/autoscaling
-          - name: gateway
-            path: platform/gateway
+          # - name: gateway
+          #   path: platform/gateway
           - name: networking
             path: platform/networking
           - name: observability
@@ -35,10 +35,10 @@ spec:
       destination:
         server: 'https://kubernetes.default.svc'
         namespace: 'platform-{{name}}'
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
-          - ServerSideApply=true
+      # syncPolicy:
+      #   automated:
+      #     prune: true
+      #     selfHeal: true
+      #   syncOptions:
+      #     - CreateNamespace=true
+      #     - ServerSideApply=true
