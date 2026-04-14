@@ -1,44 +1,44 @@
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
-metadata:
-  name: platform-services
-  namespace: argocd
-spec:
-  generators:
-    - list:
-        elements:
-          - name: autoscaling
-            path: platform/autoscaling
-          # - name: gateway
-          #   path: platform/gateway
-          - name: networking
-            path: platform/networking
-          - name: observability
-            path: platform/observability
-          - name: pgbouncer
-            path: platform/pgbouncer/helm
-          - name: policies
-            path: platform/policies
-          - name: postgresql
-            path: platform/postgresql/helm
-          - name: security
-            path: platform/security
-  template:
-    metadata:
-      name: 'platform-{{name}}'
-    spec:
-      project: default
-      source:
-        repoURL: 'https://github.com/Shubham-Kumar1/platform-advanced.git'
-        targetRevision: HEAD
-        path: '{{path}}'
-      destination:
-        server: 'https://kubernetes.default.svc'
-        namespace: 'platform-{{name}}'
-      # syncPolicy:
-      #   automated:
-      #     prune: true
-      #     selfHeal: true
-      #   syncOptions:
-      #     - CreateNamespace=true
-      #     - ServerSideApply=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: platform-services
+#   namespace: argocd
+# spec:
+#   generators:
+#     - list:
+#         elements:
+#           - name: autoscaling
+#             path: platform/autoscaling
+#           # - name: gateway
+#           #   path: platform/gateway
+#           - name: networking
+#             path: platform/networking
+#           - name: observability
+#             path: platform/observability
+#           - name: pgbouncer
+#             path: platform/pgbouncer/helm
+#           - name: policies
+#             path: platform/policies
+#           - name: postgresql
+#             path: platform/postgresql/helm
+#           - name: security
+#             path: platform/security
+#   template:
+#     metadata:
+#       name: 'platform-{{name}}'
+#     spec:
+#       project: default
+#       source:
+#         repoURL: 'https://github.com/Shubham-Kumar1/platform-advanced.git'
+#         targetRevision: HEAD
+#         path: '{{path}}'
+#       destination:
+#         server: 'https://kubernetes.default.svc'
+#         namespace: 'platform-{{name}}'
+#       # syncPolicy:
+#       #   automated:
+#       #     prune: true
+#       #     selfHeal: true
+#       #   syncOptions:
+#       #     - CreateNamespace=true
+#       #     - ServerSideApply=true
